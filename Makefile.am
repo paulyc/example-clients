@@ -29,6 +29,10 @@ if HAVE_SNDFILE
 sndfile_cflags = @SNDFILE_CFLAGS@
 endif
 
+if USE_CAPABILITIES
+capabilities_ldflags = -lcap
+endif
+
 AM_CFLAGS = -I.. $(JACK_CFLAGS) $(sndfile_cflags)
 AM_CXXFLAGS = -I.. $(JACK_CFLAGS) $(sndfile_cflags)
 
@@ -69,7 +73,7 @@ jack_latent_client_LDFLAGS = @OS_LDFLAGS@
 jack_latent_client_LDADD = $(top_builddir)/libjack/libjack.la
 
 jack_server_control_SOURCES = server_control.c
-jack_server_control_LDFLAGS = @OS_LDFLAGS@
+jack_server_control_LDFLAGS = @OS_LDFLAGS@ $(capabilities_ldflags)
 jack_server_control_LDADD = $(top_builddir)/jackd/libjackserver.la
 
 if HAVE_SNDFILE
